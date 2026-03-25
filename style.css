@@ -10,7 +10,7 @@ body {
 
 .header {
 
-    background-color:#512d9a;
+    background-color: #512d9a;
     color: white;
     padding: 0 1.5rem;
 }
@@ -83,7 +83,7 @@ button {
 
 button {
     background: #4f46e5;
-    color: white;
+    color: rgb(1, 0, 0);
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -91,6 +91,7 @@ button {
 
 button:hover {
     background: #4338ca;
+
 }
 
 #msg {
@@ -111,8 +112,8 @@ button:hover {
         left: -100%;
         top: 70px;
         flex-direction: column;
-        background-color:#512d9a;
-        width: 100%;
+        background-color: #512d9a;
+        width: 50%;
         text-align: center;
         transition: 0.3s;
         box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
@@ -153,6 +154,7 @@ button:hover {
 
     font-size: 0.9rem;
     margin: bottom 0.4rem;
+    width: 50%;
 }
 
 .footer-bottom {
@@ -181,7 +183,7 @@ button:hover {
 .card {
 
     background-color: rgb(2, 1, 13);
-    color: white;
+    color: rgb(8, 4, 4);
     padding: 20px 20px;
     display: flex;
     justify-content: space-between;
@@ -242,7 +244,7 @@ button:hover {
 
 .footer {
 
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: medium;
     color: #fff;
     text-decoration: none;
@@ -251,8 +253,10 @@ button:hover {
     background: #512d9a;
     width: 100%;
     left: 0%;
-    padding: 10px;
-    position: fixed
+    padding: 5px;
+    position: fixed;
+    opacity: 0.9;
+    display: none;
 }
 
 .footer-botton {
@@ -264,23 +268,27 @@ button:hover {
     bottom: 0%;
     width: 100%;
     position: fixed;
+    font: 0.8rem;
+    animation: alternate;
+    opacity: 0.9   ;
+     text-align: right;
 }
 
 
 
 
-!-- CSS PARA LOGIN -->
+!-- CSS PARA LOGIN -->*=====BLOQUE NUEVO: ESTILOS LOGIN Y REGISTRO=====*/
 
-
-* ===== BLOQUE NUEVO: ESTILOS LOGIN Y REGISTRO ===== */
 /* Contenedor principal para centrar los formularios */
 .auth-container {
-    flex: 1 0 auto; /* Hace que este contenedor crezca para ocupar el espacio disponible y empujar el footer hacia abajo */
+    flex: 1 0 auto;
+    /* Hace que este contenedor crezca para ocupar el espacio disponible y empujar el footer hacia abajo */
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2rem 1.5rem;
-    background-color: #ecf0f1; /* Un fondo gris muy suave para diferenciar la sección */
+    background-color: #ecf0f1;
+    /* Un fondo gris muy suave para diferenciar la sección */
 }
 
 /* Caja que contiene las pestañas y los formularios */
@@ -290,7 +298,8 @@ button:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 450px;
-    overflow: hidden; /* Para que el borde redondeado afecte a las pestañas */
+    overflow: hidden;
+    /* Para que el borde redondeado afecte a las pestañas */
 }
 
 /* Estilos de las pestañas (tabs) */
@@ -319,27 +328,26 @@ button:hover {
 
 .auth-tab.active {
     color: #2c3e50;
-    border-bottom-color: #3498db; /* Línea azul para la pestaña activa */
+    border-bottom-color: #3498db;
+    /* Línea azul para la pestaña activa */
 }
 
 /* Estilos de los formularios */
 .auth-form {
-    display: none; /* Oculto por defecto */
-    padding: 0.4rem;
-    width: 100%;
-    margin-bottom: 20px;
+    display: none;
+    /* Oculto por defecto */
+    padding: 2rem;
 }
 
-
-
 .auth-form.active {
-    display: block; /* Mostrar cuando está activo */
+    display: block;
+    /* Mostrar cuando está activo */
 }
 
 .auth-form h2 {
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
-    color: #000000;
+    color: #2c3e50;
     text-align: center;
 }
 
@@ -352,14 +360,14 @@ button:hover {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: #000000;
+    color: #34495e;
     font-size: 0.9rem;
 }
 
 .form-group input {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #000000;
+    border: 1px solid #bdc3c7;
     border-radius: 4px;
     font-size: 1rem;
     transition: border-color 0.3s;
@@ -395,7 +403,8 @@ button:hover {
     margin-top: 1rem;
     text-align: center;
     font-size: 0.9rem;
-    min-height: 1.5rem; /* Evita que el layout salte cuando aparece un mensaje */
+    min-height: 1.5rem;
+    /* Evita que el layout salte cuando aparece un mensaje */
 }
 
 /* Pequeño ajuste para pantallas muy pequeñas */
@@ -403,5 +412,263 @@ button:hover {
     .auth-form {
         padding: 1.5rem;
     }
+}
+
+
+// ===== BLOQUE NUEVO: LÓGICA DE LOGIN Y REGISTRO =====
+
+
+// --- Elementos del DOM ---
+const loginTab=document.getElementById('login-tab');
+const registerTab=document.getElementById('register-tab');
+const loginForm=document.getElementById('login-form');
+const registerForm=document.getElementById('register-form');
+const loginMessage=document.getElementById('login-message');
+const registerMessage=document.getElementById('register-message');
+
+// --- Función para cambiar entre pestañas ---
+if (loginTab && registerTab && loginForm && registerForm) {
+    loginTab.addEventListener('click', ()=> {
+            loginTab.classList.add('active');
+            registerTab.classList.remove('active');
+            loginForm.classList.add('active');
+            registerForm.classList.remove('active');
+            // Limpiar mensajes al cambiar de pestaña
+            if (loginMessage) loginMessage.textContent='';
+            if (registerMessage) registerMessage.textContent='';
+        });
+
+    registerTab.addEventListener('click', ()=> {
+            registerTab.classList.add('active');
+            loginTab.classList.remove('active');
+            registerForm.classList.add('active');
+            loginForm.classList.remove('active');
+            if (loginMessage) loginMessage.textContent='';
+            if (registerMessage) registerMessage.textContent='';
+        });
+}
+
+// --- Simulación de Login ---
+if (loginForm) {
+    loginForm.addEventListener('submit', (e)=> {
+            e.preventDefault(); // Prevenir envío real del formulario
+
+            const email=document.getElementById('login-email').value;
+            const password=document.getElementById('login-password').value;
+
+            // Validación básica de campos no vacíos
+            if ( !email || !password) {
+                loginMessage.textContent='Por favor, completa todos los campos.';
+                loginMessage.style.color='red';
+                return;
+            }
+
+            // Simulación de éxito (aquí se conectaría con el backend)
+            loginMessage.textContent='Inicio de sesión simulado con éxito. (Backend pendiente)';
+            loginMessage.style.color='green';
+
+            console.log('Login simulado:', {
+                email, password
+            });
+
+        // Opcional: limpiar campos después del éxito
+        // loginForm.reset();
+    });
+}
+
+// --- Simulación de Registro ---
+if (registerForm) {
+    registerForm.addEventListener('submit', (e)=> {
+            e.preventDefault();
+
+            const name=document.getElementById('register-name').value;
+            const email=document.getElementById('register-email').value;
+            const password=document.getElementById('register-password').value;
+            const confirm=document.getElementById('register-confirm').value;
+
+            // Validaciones básicas del lado del cliente
+            if ( !name || !email || !password || !confirm) {
+                registerMessage.textContent='Todos los campos son obligatorios.';
+                registerMessage.style.color='red';
+                return;
+            }
+
+            if (password.length < 6) {
+                registerMessage.textContent='La contraseña debe tener al menos 6 caracteres.';
+                registerMessage.style.color='red';
+                return;
+            }
+
+            if (password !==confirm) {
+                registerMessage.textContent='Las contraseñas no coinciden.';
+                registerMessage.style.color='red';
+                return;
+            }
+
+            // Simulación de registro exitoso
+            registerMessage.textContent='Registro simulado con éxito. (Backend pendiente)';
+            registerMessage.style.color='green';
+
+            console.log('Registro simulado:', {
+                name, email, password
+            });
+
+        // Opcional: cambiar a la pestaña de login después de un registro exitoso
+        // setTimeout(() => registerTab.click(), 2000);
+    });
+}
+
+
+
+servicios .cards-container-servicios div {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 1.5rem;
+    width: 280px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cards-container-servicios img {
+    width: 50%;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+}
+
+
+.cards-container-servicios div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    width: 280px;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    /* ocupa todo el ancho de la card */
+    height: 200px;
+    /* altura fija */
+    object-fit: contain;
+    /* para que no se deformen */
+    display: block;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+/* Estilo de cada card */
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+    width: 280px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+    background: white;
+}
+
+/* Imagen dentro de la card */
+.cardsombrerero .card-img {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #e9cff2, #d4b8e6);
+    border-radius: 50%;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.card-image img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.cards-container-servicios>div {
+    width: 280px;
+    display: block;
+}
+
+.card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: #5a3a6e;
+    margin-bottom: 0.8rem;
+}
+
+.card p {
+    color: #6a5a7a;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .servicios {
+        padding: 2rem 1rem;
+    }
+
+    .servicios h1 {
+        font-size: 2.2rem;
+    }
+
+    .card {
+        width: 260px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+
+
+.footer-contact{
+
+
+        font-size: 0.9rem;
+        margin: bottom 0.4rem;
+        width: 50%;
+        text-align: center;
+}
+
+.footer-links a{
+
+        color: aliceblue;
+        text-decoration: none;
+        text-align: center;
+
+}   
+
+
+.footer-brand{
+        text-align: center; 
+        
+}
+
+.footer-links{
+        text-align: center;
+        position: center;
 }
 

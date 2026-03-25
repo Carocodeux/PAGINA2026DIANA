@@ -113,3 +113,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+
+function reproducir() {
+    const audio = document.getElementById("audio/mpeg");
+    audio.play(audio/mpeg);
+}
